@@ -1,0 +1,33 @@
+---
+description: Demo project defaults for Snowflake actuarial data ingestion (Result Set Publication)
+alwaysApply: true
+---
+
+# Demo Project Defaults
+
+- Keep code simple and readable; prioritize clarity for live demos
+- Use only mock/synthetic data — never real customer or policyholder data
+- Minimize external dependencies and setup steps
+- Maintain predictable folder layout: `sql/`, `python/`, `data-samples/`, `docs/`
+- Never include customer names, product names, or internal project names in committed files
+
+# SQL Conventions
+
+- Write idempotent statements (CREATE OR REPLACE, IF NOT EXISTS)
+- Include explanatory comments for audience understanding
+- Use the ACTUARIAL_LAB_DB database and medallion schemas (RAW, STAGE, CURATED, ANALYTICS)
+- Prefix file formats with `FF_`, stages with `RAW_`, streams with `*_STREAM`
+- Limit result previews to ≤500 rows for demo display
+- All warehouse references use the `ACTUARIAL_*_WH` naming convention
+
+# Python Conventions
+
+- Use `snowflake-snowpark-python` or `snowflake-connector-python` for Snowflake connectivity
+- Use `pandas` + `pyarrow` for local Parquet generation
+- Keep dependencies minimal for easy environment setup
+
+# Demo Hygiene
+
+- Provide reset/cleanup scripts (sql/99_cleanup.sql) to tear down all demo objects
+- Use small synthetic datasets for initial demos; note 30TB scale as Phase 2
+- Every SQL script should be runnable independently in Snowsight as ACCOUNTADMIN
