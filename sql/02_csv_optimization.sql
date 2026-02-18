@@ -7,7 +7,7 @@
 -- Run after 01_stages_formats.sql
 -- =============================================================================
 
-USE ROLE ACCOUNTADMIN;
+USE ROLE ACTUARIAL_LAB_ROLE;
 USE DATABASE ACTUARIAL_LAB_DB;
 USE SCHEMA RAW;
 USE WAREHOUSE ACTUARIAL_INGEST_WH;

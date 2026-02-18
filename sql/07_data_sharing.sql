@@ -9,7 +9,7 @@
 -- live, always-current share.
 -- =============================================================================
 
-USE ROLE ACCOUNTADMIN;
+USE ROLE ACTUARIAL_LAB_ROLE;
 USE DATABASE ACTUARIAL_LAB_DB;
 USE WAREHOUSE ACTUARIAL_ANALYTICS_WH;
 
@@ -56,6 +56,10 @@ FROM CURATED.RUN_COMPARISON;
 -- Granular results view (optional - row-level filtering example)
 -- This shows how to restrict by REPORTING_STANDARD if different clients
 -- should only see data for the standard they report under.
+--
+-- NOTE: This view depends on STAGE.RESULTS_ENRICHED from 05_transforms.sql.
+-- If you used Dynamic Tables (06_dynamic_tables.sql) instead, change the
+-- source table to STAGE.RESULTS_ENRICHED_DT.
 CREATE OR REPLACE SECURE VIEW VW_RESULTS_DETAIL
 AS
 SELECT

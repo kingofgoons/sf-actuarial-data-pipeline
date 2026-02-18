@@ -6,7 +6,7 @@
 -- actuarial compute farm writes them to S3.
 -- =============================================================================
 
-USE ROLE ACCOUNTADMIN;
+USE ROLE ACTUARIAL_LAB_ROLE;
 USE DATABASE ACTUARIAL_LAB_DB;
 USE SCHEMA RAW;
 

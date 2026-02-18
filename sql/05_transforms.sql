@@ -7,7 +7,7 @@
 -- Creates: Streams for CDC, destination tables, Tasks for automation
 -- =============================================================================
 
-USE ROLE ACCOUNTADMIN;
+USE ROLE ACTUARIAL_LAB_ROLE;
 USE DATABASE ACTUARIAL_LAB_DB;
 USE WAREHOUSE ACTUARIAL_TRANSFORM_WH;
 

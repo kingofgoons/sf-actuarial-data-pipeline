@@ -8,7 +8,7 @@
 -- then talk through the recommendations.
 -- =============================================================================
 
-USE ROLE ACCOUNTADMIN;
+USE ROLE ACTUARIAL_LAB_ROLE;
 USE DATABASE ACTUARIAL_LAB_DB;
 USE WAREHOUSE ACTUARIAL_ANALYTICS_WH;
 

@@ -2,22 +2,29 @@
 -- 99_cleanup.sql - Tear Down All Demo Objects
 -- =============================================================================
 -- Run this to clean up after the demo and avoid ongoing charges.
--- Execute as ACCOUNTADMIN.
+-- NOTE: ACCOUNTADMIN is required to drop roles, warehouses, resource monitors,
+-- and shares. This is one of the few scripts that legitimately needs it.
+--
+-- NOTE: You likely used EITHER Streams+Tasks (05) OR Dynamic Tables (06),
+-- not both. Some ALTER statements below may fail with "does not exist" —
+-- this is expected. Continue running the rest of the script.
 -- =============================================================================
 
 USE ROLE ACCOUNTADMIN;
 
 -- -----------------------------------------------------------------------------
--- 1. Suspend Tasks (must be done before dropping database)
+-- 1. Suspend Tasks (if you used 05_transforms.sql)
+-- These may fail if you used Dynamic Tables instead — that's OK, continue.
 -- -----------------------------------------------------------------------------
-ALTER TASK ACTUARIAL_LAB_DB.CURATED.TASK_AGGREGATE_COHORTS SUSPEND;
-ALTER TASK ACTUARIAL_LAB_DB.STAGE.TASK_ENRICH_RESULTS SUSPEND;
+ALTER TASK IF EXISTS ACTUARIAL_LAB_DB.CURATED.TASK_AGGREGATE_COHORTS SUSPEND;
+ALTER TASK IF EXISTS ACTUARIAL_LAB_DB.STAGE.TASK_ENRICH_RESULTS SUSPEND;
 
 -- -----------------------------------------------------------------------------
--- 2. Suspend Dynamic Tables
+-- 2. Suspend Dynamic Tables (if you used 06_dynamic_tables.sql)
+-- These may fail if you used Streams+Tasks instead — that's OK, continue.
 -- -----------------------------------------------------------------------------
-ALTER DYNAMIC TABLE ACTUARIAL_LAB_DB.STAGE.RESULTS_ENRICHED_DT SUSPEND;
-ALTER DYNAMIC TABLE ACTUARIAL_LAB_DB.CURATED.COHORT_SUMMARY_DT SUSPEND;
+ALTER DYNAMIC TABLE IF EXISTS ACTUARIAL_LAB_DB.STAGE.RESULTS_ENRICHED_DT SUSPEND;
+ALTER DYNAMIC TABLE IF EXISTS ACTUARIAL_LAB_DB.CURATED.COHORT_SUMMARY_DT SUSPEND;
 
 -- -----------------------------------------------------------------------------
 -- 3. Drop Share

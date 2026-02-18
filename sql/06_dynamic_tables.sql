@@ -8,7 +8,7 @@
 -- Use ONE approach or the other — not both on the same data.
 -- =============================================================================
 
-USE ROLE ACCOUNTADMIN;
+USE ROLE ACTUARIAL_LAB_ROLE;
 USE DATABASE ACTUARIAL_LAB_DB;
 USE WAREHOUSE ACTUARIAL_TRANSFORM_WH;
 

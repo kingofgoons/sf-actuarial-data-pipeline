@@ -59,10 +59,9 @@ CREATE OR REPLACE FILE FORMAT FF_JSON_METADATA
 -- Verify the integration exists
 DESC INTEGRATION S3_INT;
 
--- Grant usage on the integration to the demo role
-GRANT USAGE ON INTEGRATION S3_INT TO ROLE ACTUARIAL_LAB_ROLE;
+-- NOTE: GRANT USAGE ON INTEGRATION S3_INT is done in 00_setup.sql by ACCOUNTADMIN
 
--- ⚠️ EDIT THIS: Replace YOUR-BUCKET with your S3 bucket name
+-- ⚠️ EDIT THIS: Replace with your S3 bucket name
 CREATE OR REPLACE STAGE RAW_S3_STAGE
     STORAGE_INTEGRATION = S3_INT
     URL = 's3://YOUR-BUCKET/actuarial-results/'

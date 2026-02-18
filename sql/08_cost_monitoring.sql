@@ -2,7 +2,8 @@
 -- 08_cost_monitoring.sql - Cost Control and Usage Monitoring
 -- =============================================================================
 -- Resource monitors for budget control and queries for monitoring usage.
--- Run as ACCOUNTADMIN.
+-- NOTE: ACCOUNTADMIN is required for creating resource monitors and querying
+-- SNOWFLAKE.ACCOUNT_USAGE views. This is one of the few scripts that needs it.
 -- =============================================================================
 
 USE ROLE ACCOUNTADMIN;
