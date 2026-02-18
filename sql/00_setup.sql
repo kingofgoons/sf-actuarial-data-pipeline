@@ -79,8 +79,8 @@ CREATE OR REPLACE DATABASE ACTUARIAL_LAB_DB
 CREATE OR REPLACE SCHEMA ACTUARIAL_LAB_DB.RAW
     COMMENT = 'Raw ingested data - actuarial results, cashflow projections, run metadata';
 
--- STAGE: Cleaned and enriched data (silver layer)
-CREATE OR REPLACE SCHEMA ACTUARIAL_LAB_DB.STAGE
+-- SILVER: Cleaned and enriched data (silver layer)
+CREATE OR REPLACE SCHEMA ACTUARIAL_LAB_DB.SILVER
     COMMENT = 'Enriched data - results joined with run metadata, derived metrics';
 
 -- CURATED: Business-ready aggregates (gold layer)

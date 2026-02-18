@@ -33,7 +33,7 @@ USE WAREHOUSE ACTUARIAL_TRANSFORM_WH;
 -- =============================================================================
 -- Dynamic Table: RESULTS_ENRICHED_DT (Silver layer)
 -- =============================================================================
-USE SCHEMA STAGE;
+USE SCHEMA SILVER;
 
 CREATE OR REPLACE DYNAMIC TABLE RESULTS_ENRICHED_DT
     TARGET_LAG = '1 minute'
@@ -91,7 +91,7 @@ AS
         AVG(CSM_RATIO) AS AVG_CSM_RATIO,
         SUM(INSURANCE_REVENUE) AS TOTAL_REVENUE,
         SUM(INSURANCE_SERVICE_EXPENSE) AS TOTAL_EXPENSE
-    FROM ACTUARIAL_LAB_DB.STAGE.RESULTS_ENRICHED_DT
+    FROM ACTUARIAL_LAB_DB.SILVER.RESULTS_ENRICHED_DT
     GROUP BY COHORT_ID, VALUATION_DATE, REPORTING_STANDARD;
 
 -- =============================================================================
@@ -106,11 +106,11 @@ ORDER BY REFRESH_END_TIME DESC
 LIMIT 50;
 
 -- Check current lag and status
-SHOW DYNAMIC TABLES IN SCHEMA ACTUARIAL_LAB_DB.STAGE;
+SHOW DYNAMIC TABLES IN SCHEMA ACTUARIAL_LAB_DB.SILVER;
 SHOW DYNAMIC TABLES IN SCHEMA ACTUARIAL_LAB_DB.CURATED;
 
 -- =============================================================================
 -- Suspend/Resume (cost control)
 -- =============================================================================
--- ALTER DYNAMIC TABLE ACTUARIAL_LAB_DB.STAGE.RESULTS_ENRICHED_DT SUSPEND;
--- ALTER DYNAMIC TABLE ACTUARIAL_LAB_DB.STAGE.RESULTS_ENRICHED_DT RESUME;
+-- ALTER DYNAMIC TABLE ACTUARIAL_LAB_DB.SILVER.RESULTS_ENRICHED_DT SUSPEND;
+-- ALTER DYNAMIC TABLE ACTUARIAL_LAB_DB.SILVER.RESULTS_ENRICHED_DT RESUME;

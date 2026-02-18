@@ -17,13 +17,13 @@ USE ROLE ACCOUNTADMIN;
 -- These may fail if you used Dynamic Tables instead — that's OK, continue.
 -- -----------------------------------------------------------------------------
 ALTER TASK IF EXISTS ACTUARIAL_LAB_DB.CURATED.TASK_AGGREGATE_COHORTS SUSPEND;
-ALTER TASK IF EXISTS ACTUARIAL_LAB_DB.STAGE.TASK_ENRICH_RESULTS SUSPEND;
+ALTER TASK IF EXISTS ACTUARIAL_LAB_DB.SILVER.TASK_ENRICH_RESULTS SUSPEND;
 
 -- -----------------------------------------------------------------------------
 -- 2. Suspend Dynamic Tables (if you used 06_dynamic_tables.sql)
 -- These may fail if you used Streams+Tasks instead — that's OK, continue.
 -- -----------------------------------------------------------------------------
-ALTER DYNAMIC TABLE IF EXISTS ACTUARIAL_LAB_DB.STAGE.RESULTS_ENRICHED_DT SUSPEND;
+ALTER DYNAMIC TABLE IF EXISTS ACTUARIAL_LAB_DB.SILVER.RESULTS_ENRICHED_DT SUSPEND;
 ALTER DYNAMIC TABLE IF EXISTS ACTUARIAL_LAB_DB.CURATED.COHORT_SUMMARY_DT SUSPEND;
 
 -- -----------------------------------------------------------------------------
