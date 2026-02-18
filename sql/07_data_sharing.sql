@@ -11,6 +11,43 @@
 -- NOTE: This script assumes you ran 06_dynamic_tables.sql (not 05_transforms.sql).
 -- =============================================================================
 
+-- =============================================================================
+-- SNOWSIGHT DEMO WALKTHROUGH
+-- =============================================================================
+-- After running this script in a Worksheet, demo the share in Snowsight:
+--
+-- 1. VERIFY THE SHARE WAS CREATED:
+--    - Left nav: Data Products → Provider Studio
+--    - You should see "ACTUARIAL_RESULTS_SHARE" listed
+--    - Click it to see details (objects included, consumers, etc.)
+--
+-- 2. VIEW SHARE DETAILS:
+--    - Click "ACTUARIAL_RESULTS_SHARE" → "Data" tab
+--    - Shows VW_COHORT_SUMMARY and VW_RESULTS_DETAIL
+--    - "Consumers" tab shows which accounts have access (none yet)
+--
+-- 3. ADD A CONSUMER (requires a second Snowflake account):
+--    - Click "Add Consumer" button, or uncomment the ALTER SHARE below
+--    - Enter the consumer's account locator (e.g., "ABC12345" or "orgname.account_name")
+--    - Consumer will see the share in their "Private Sharing" → "Shared With Me"
+--
+-- 4. SIMULATE CONSUMER EXPERIENCE (same account, different role - optional):
+--    - If you don't have a second account, you can demo the data:
+--      SELECT * FROM ACTUARIAL_LAB_DB.ANALYTICS.VW_COHORT_SUMMARY;
+--      SELECT * FROM ACTUARIAL_LAB_DB.ANALYTICS.VW_RESULTS_DETAIL LIMIT 100;
+--
+-- 5. SHOW LIVE DATA REFRESH:
+--    - Point out that Dynamic Tables (06_) auto-refresh
+--    - Any new data loaded → SILVER transforms → CURATED aggregates → Share
+--    - Consumer always sees current data, no manual refresh needed
+--
+-- 6. KEY TALKING POINTS:
+--    - Zero-copy: Consumer queries provider's data in place
+--    - Real-time: No ETL lag between provider and consumer
+--    - Secure: Provider controls access, can revoke anytime
+--    - Cost-efficient: Consumer pays only for their compute
+-- =============================================================================
+
 USE ROLE ACTUARIAL_LAB_ROLE;
 USE DATABASE ACTUARIAL_LAB_DB;
 USE WAREHOUSE ACTUARIAL_ANALYTICS_WH;
