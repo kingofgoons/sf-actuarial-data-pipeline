@@ -7,6 +7,8 @@
 -- This is the "Result Set Publication" destination: granular IFRS 17 /
 -- US GAAP data available in the client's own Snowflake account as a
 -- live, always-current share.
+--
+-- NOTE: This script assumes you ran 06_dynamic_tables.sql (not 05_transforms.sql).
 -- =============================================================================
 
 USE ROLE ACTUARIAL_LAB_ROLE;
@@ -35,31 +37,12 @@ SELECT
     TOTAL_NET_LIABILITY,
     AVG_CSM_RATIO,
     TOTAL_REVENUE,
-    TOTAL_EXPENSE,
-    _UPDATED_AT
-FROM CURATED.COHORT_SUMMARY;
-
--- Run comparison view (shared to end client)
-CREATE OR REPLACE SECURE VIEW VW_RUN_COMPARISON
-AS
-SELECT
-    RUN_ID_A,
-    RUN_ID_B,
-    COHORT_ID,
-    REPORTING_STANDARD,
-    DELTA_BEL,
-    DELTA_CSM,
-    DELTA_NET_LIABILITY,
-    _COMPUTED_AT
-FROM CURATED.RUN_COMPARISON;
+    TOTAL_EXPENSE
+FROM CURATED.COHORT_SUMMARY_DT;
 
 -- Granular results view (optional - row-level filtering example)
 -- This shows how to restrict by REPORTING_STANDARD if different clients
 -- should only see data for the standard they report under.
---
--- NOTE: This view depends on STAGE.RESULTS_ENRICHED from 05_transforms.sql.
--- If you used Dynamic Tables (06_dynamic_tables.sql) instead, change the
--- source table to STAGE.RESULTS_ENRICHED_DT.
 CREATE OR REPLACE SECURE VIEW VW_RESULTS_DETAIL
 AS
 SELECT
@@ -78,7 +61,7 @@ SELECT
     INSURANCE_SERVICE_EXPENSE,
     NET_LIABILITY,
     CSM_RATIO
-FROM STAGE.RESULTS_ENRICHED;
+FROM STAGE.RESULTS_ENRICHED_DT;
 -- To filter by client: add WHERE REPORTING_STANDARD = CURRENT_SESSION()...
 -- or use a mapping table for row-level security.
 
@@ -95,7 +78,6 @@ GRANT USAGE ON SCHEMA ACTUARIAL_LAB_DB.ANALYTICS TO SHARE ACTUARIAL_RESULTS_SHAR
 
 -- Grant the share access to the secure views
 GRANT SELECT ON VIEW ACTUARIAL_LAB_DB.ANALYTICS.VW_COHORT_SUMMARY TO SHARE ACTUARIAL_RESULTS_SHARE;
-GRANT SELECT ON VIEW ACTUARIAL_LAB_DB.ANALYTICS.VW_RUN_COMPARISON TO SHARE ACTUARIAL_RESULTS_SHARE;
 GRANT SELECT ON VIEW ACTUARIAL_LAB_DB.ANALYTICS.VW_RESULTS_DETAIL TO SHARE ACTUARIAL_RESULTS_SHARE;
 
 -- =============================================================================
