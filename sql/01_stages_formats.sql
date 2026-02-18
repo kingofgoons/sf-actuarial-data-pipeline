@@ -64,7 +64,7 @@ DESC INTEGRATION S3_INT;
 -- ⚠️ EDIT THIS: Replace with your S3 bucket name
 CREATE OR REPLACE STAGE RAW_S3_STAGE
     STORAGE_INTEGRATION = S3_INT
-    URL = 's3://blandsman/actuarial-results/'
+    URL = 's3://YOUR-BUCKET/actuarial-results/'
     FILE_FORMAT = FF_PARQUET_RESULTS
     COMMENT = 'External S3 stage for actuarial result Parquet files';
 

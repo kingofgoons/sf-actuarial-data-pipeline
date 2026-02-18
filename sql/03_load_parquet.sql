@@ -49,11 +49,15 @@ COPY INTO CASHFLOW_PROJECTIONS_RAW
 -- =============================================================================
 -- Load run metadata (CSV)
 -- =============================================================================
+-- Note: MATCH_BY_COLUMN_NAME not supported for CSV without PARSE_HEADER=TRUE.
+-- Columns must be listed explicitly in the order they appear in the CSV.
 
-COPY INTO RUN_METADATA_RAW
+COPY INTO RUN_METADATA_RAW (
+    RUN_ID, RUN_START_TS, RUN_END_TS, STATUS, MODEL_VERSION,
+    SCENARIO_COUNT, MODEL_POINT_COUNT, NODE_COUNT, TOTAL_COMPUTE_SECONDS
+)
     FROM @RAW_S3_STAGE
     FILE_FORMAT = FF_CSV_RESULTS
-    MATCH_BY_COLUMN_NAME = CASE_INSENSITIVE
     PATTERN = '.*run_metadata.*[.]csv'
     ON_ERROR = 'CONTINUE'
     PURGE = FALSE;
